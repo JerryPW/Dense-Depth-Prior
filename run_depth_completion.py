@@ -267,7 +267,7 @@ def main():
         help='random rotation in degree as data augmentation')
     parser.add_argument("--color_jitter", type=float, default=0.4, \
         help='add color jitter as data augmentation, set None to deactivate')
-    parser.add_argument("--batch_size", type=int, default=8, \
+    parser.add_argument("--batch_size", type=int, default=4, \
         help='batch size')
     parser.add_argument("--n_epochs", type=int, default=12, \
         help='number of epochs')

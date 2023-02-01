@@ -152,7 +152,6 @@ class MyDataset(torch.utils.data.dataset.Dataset):
         # open keypoint database for sampling at image keypoints
         self.feature_db = sqlite3.connect(db_path).cursor()
         self.id2dbid = dict((n[:-4], id) for n, id in self.feature_db.execute("SELECT name, image_id FROM images"))
-        print(self.id2dbid.items())
 
     def __getitem__(self, index): # __getitem__实现索引数据集中的某一个数据
         rgb_file = os.path.join(self.dataset_dir, self.rgb_files[index])
@@ -172,9 +171,10 @@ class MyDataset(torch.utils.data.dataset.Dataset):
         else:
             pad_rgb_height = 0.
             scale_rgb = (1., 1.)
-        pos = self.rgb_files[index].find("/")
-        id = self.rgb_files[index][:pos+1].replace("test/", "").replace("train/", "")
-        
+        id = self.rgb_files[index].replace(".png", "").replace("train/", "")
+        pos = id.find("/")
+        id = id[pos+1:]
+
         # precompute random rotation
         rot = random.uniform(-self.random_rot, self.random_rot)
 
